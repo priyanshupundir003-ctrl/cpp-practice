@@ -1,18 +1,34 @@
 class Solution {
 public:
     string reverseWords(string s) {
-        string result = "";
-        int i = s.length() - 1;
-        
-        while(i >= 0){
-            while(i >= 0 && s[i] == ' ') i--; //skip spaces
-            if(i < 0) break;
-            int j = i;
-            while(j >= 0 && s[j] != ' ') j--;  // find word start
-            result += s.substr(j+1, i - j);
-            result += " ";
-            i = j;
+        vector<string> words;
+        string word="";
+        // words ko alag alag karna
+        for(int i=0;i<s.length();i++){
+            if(s[i] !=' '){
+                word+=s[i];
+            }
+            else{
+                if(word !=""){
+                    words.push_back(word);
+                    word="";
+                }
+            }
         }
-        return result.substr(0,result.length() - 1);
+        //last word
+        if(word !=""){
+            words.push_back(word);
+        }
+        // words ka order ulta karna
+        reverse(words.begin(),words.end());
+        // answer banana
+        string ans="";
+        for(int i=0;i<words.size();i++){
+            if(i>0){
+                ans+=" ";
+            }
+            ans+=words[i];
+        }
+        return ans;
     }
 };
